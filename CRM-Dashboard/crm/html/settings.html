@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kresola — Settings</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="settings">
+<div class="app-shell">
+  <div id="sidebar-root"></div>
+
+  <main class="main">
+    <div class="mobile-topbar">
+      <button class="icon-btn" data-toggle-sidebar>☰</button>
+      <div class="brand-name" style="color:var(--text);font-weight:600;">Kresola</div>
+    </div>
+
+    <div class="topbar">
+      <div class="greeting">
+        <h1>Settings</h1>
+        <p>Manage your profile and workspace preferences.</p>
+      </div>
+      <div class="topbar-actions">
+        <div class="avatar" data-avatar-initials>ME</div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="grid-template-columns:2fr 1fr;">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Profile details</h3>
+            <p class="card-sub">This information is stored locally in your browser.</p>
+          </div>
+        </div>
+        <form id="profile-form" novalidate>
+          <div class="form-grid">
+            <div class="field" id="name-field">
+              <label for="name">Full name</label>
+              <input type="text" id="name" placeholder="Jane Cooper">
+              <span class="error-msg">Please enter your full name.</span>
+            </div>
+            <div class="field" id="settings-email-field">
+              <label for="settings-email">Email</label>
+              <input type="email" id="settings-email" placeholder="jane@company.com">
+              <span class="error-msg">Enter a valid email address.</span>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="field" id="phone-field">
+              <label for="phone">Phone number</label>
+              <input type="tel" id="phone" placeholder="+91 98765 43210">
+              <span class="error-msg">Enter a valid phone number.</span>
+            </div>
+            <div class="field">
+              <label for="role">Role</label>
+              <select class="select" id="role" style="width:100%;">
+                <option>Founder</option>
+                <option>Operations</option>
+                <option>Sales</option>
+                <option>Support</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="bio">Short bio</label>
+            <textarea id="bio" rows="3" placeholder="A little about you…"></textarea>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:6px;">
+            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-outline" id="reset-btn">Reset</button>
+          </div>
+        </form>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div class="card">
+          <h3 class="card-title" style="margin-bottom:14px;">Appearance</h3>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:13px;font-weight:600;">Dark mode</div>
+              <div class="cell-sub">Switch between light and dark theme</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" class="theme-switch-input">
+              <span class="track"><span class="thumb"></span></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title" style="margin-bottom:14px;">Sound</h3>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:13px;font-weight:600;">Click sounds</div>
+              <div class="cell-sub">Play a sound when buttons are pressed</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="sound-switch">
+              <span class="track"><span class="thumb"></span></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title" style="margin-bottom:6px;">Danger zone</h3>
+          <p class="cell-sub" style="margin:0 0 14px;">This clears all local demo data — orders you've edited, saved profile and preferences.</p>
+          <button class="btn btn-outline btn-block" id="clear-data-btn">Clear local data</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-overlay" id="clear-modal">
+  <div class="modal">
+    <h3>Clear local data?</h3>
+    <p>This resets the demo — your profile, order edits and theme choice will be erased. This can't be undone.</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="clear-cancel">Cancel</button>
+      <button class="btn btn-danger" id="clear-confirm">Clear data</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/icons.js"></script>
+<script src="js/app.js"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/settings.js"></script>
+</body>
+</html>

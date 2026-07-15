@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kresola — Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="dashboard">
+<div class="app-shell">
+  <div id="sidebar-root"></div>
+
+  <main class="main">
+    <div class="mobile-topbar">
+      <button class="icon-btn" data-toggle-sidebar>☰</button>
+      <div class="brand-name" style="color:var(--text);font-weight:600;">Kresola</div>
+    </div>
+
+    <div class="topbar">
+      <div class="greeting">
+        <h1><span data-greeting>Hello</span>, <span data-user-name>there</span></h1>
+        <p>Here's your current business overview and key metrics.</p>
+      </div>
+      <div class="topbar-actions">
+        <div class="search-wrap">
+          <div class="search-box"><span id="search-icon"></span><input type="text" id="global-search" placeholder="Search customers or orders…" autocomplete="off"></div>
+          <div class="dropdown-panel" id="search-panel">
+            <div class="dropdown-list" id="search-results"></div>
+          </div>
+        </div>
+        <div class="notif-wrap">
+          <button class="icon-btn" id="bell-btn" style="position:relative;"><span id="notif-badge"></span></button>
+          <div class="dropdown-panel" id="notif-panel">
+            <div class="dropdown-head">
+              <h4>Notifications</h4>
+              <button id="notif-mark-all">Mark all read</button>
+            </div>
+            <div class="dropdown-list" id="notif-list"></div>
+          </div>
+        </div>
+        <button class="icon-btn theme-toggle-btn" id="theme-icon-btn"></button>
+        <div class="avatar" data-avatar-initials>ME</div>
+      </div>
+    </div>
+
+    <div class="kpi-grid" id="kpi-grid"></div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Dynamics of the Balance</h3>
+            <p class="card-sub">Revenue collected over the last 12 months</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div class="chip-toggle" id="range-toggle">
+              <button class="active" data-range="12m">12M</button>
+              <button data-range="6m">6M</button>
+            </div>
+            <button class="icon-btn btn-sm" id="export-csv-btn" title="Export revenue as CSV" style="width:32px;height:32px;"></button>
+          </div>
+        </div>
+        <canvas id="revenue-chart" height="140"></canvas>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Analytics</h3>
+            <p class="card-sub">Orders this week</p>
+          </div>
+        </div>
+        <canvas id="analytics-chart" height="140"></canvas>
+        <div style="margin-top:16px;display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;justify-content:space-between;font-size:12.5px;color:var(--text-muted);">
+            <span>Available Balance</span>
+          </div>
+          <div class="num-font" style="font-size:22px;font-weight:600;" id="balance-value">$150,545.90</div>
+          <button class="btn btn-primary btn-block" id="withdraw-btn">Withdraw Money</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Monthly Revenue Goal</h3>
+            <p class="card-sub">Current month vs. target</p>
+          </div>
+          <button class="btn btn-outline btn-sm" id="edit-goal-btn">Edit</button>
+        </div>
+        <div class="goal-row">
+          <span class="cell-sub" id="goal-amounts">$0 of $0</span>
+          <span class="goal-pct" id="goal-pct">0%</span>
+        </div>
+        <div class="goal-track"><div class="goal-fill" id="goal-fill" style="width:0%;"></div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Top Customers</h3>
+            <p class="card-sub">Ranked by total spend</p>
+          </div>
+        </div>
+        <div id="top-customers-list"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Quick Actions</h3>
+            <p class="card-sub">Common tasks</p>
+          </div>
+        </div>
+        <div class="quick-actions-grid">
+          <button class="quick-action-btn" id="qa-add-customer"><span id="qa-icon-user"></span>Add customer</button>
+          <a class="quick-action-btn" href="orders.html"><span id="qa-icon-orders"></span>View orders</a>
+          <a class="quick-action-btn" href="customers.html"><span id="qa-icon-cust"></span>All customers</a>
+          <a class="quick-action-btn" href="settings.html"><span id="qa-icon-settings"></span>Settings</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <h3 class="card-title">Recent Activity</h3>
+          <p class="card-sub">What's happening across your account</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="chip-toggle" id="activity-filter">
+            <button class="active" data-filter="">All</button>
+            <button data-filter="success">Success</button>
+            <button data-filter="warn">Alerts</button>
+            <button data-filter="danger">Issues</button>
+          </div>
+          <a href="orders.html" class="btn btn-outline btn-sm">View all orders</a>
+        </div>
+      </div>
+      <div id="activity-list"></div>
+      <div style="text-align:center;margin-top:14px;">
+        <button class="btn btn-outline btn-sm" id="activity-more-btn">Load more</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Withdraw money modal -->
+<div class="modal-overlay" id="withdraw-modal">
+  <div class="modal">
+    <h3>Withdraw Money</h3>
+    <p id="withdraw-modal-sub">Enter an amount to withdraw from your available balance.</p>
+    <div class="field" id="withdraw-field">
+      <label>Amount (USD)</label>
+      <input type="number" id="withdraw-amount" min="0" step="0.01" placeholder="0.00">
+      <span class="error-msg" id="withdraw-error">Enter a valid amount up to your available balance.</span>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" id="withdraw-cancel">Cancel</button>
+      <button class="btn btn-primary" id="withdraw-confirm">Withdraw</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit goal modal -->
+<div class="modal-overlay" id="goal-modal">
+  <div class="modal">
+    <h3>Set Monthly Goal</h3>
+    <p>Update your target revenue for this month.</p>
+    <div class="field" id="goal-field">
+      <label>Goal amount (USD)</label>
+      <input type="number" id="goal-amount-input" min="1" step="100">
+      <span class="error-msg" id="goal-error">Enter an amount greater than $0.</span>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" id="goal-cancel">Cancel</button>
+      <button class="btn btn-primary" id="goal-save">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add customer modal -->
+<div class="modal-overlay" id="add-customer-modal">
+  <div class="modal modal-wide">
+    <h3>Add Customer</h3>
+    <p>Adds a customer to your account — it will also appear on the Customers page.</p>
+    <div class="form-grid">
+      <div class="field" id="ac-name-field">
+        <label>Full name</label>
+        <input type="text" id="ac-name" placeholder="Jordan Blake">
+        <span class="error-msg">Enter the customer's full name.</span>
+      </div>
+      <div class="field" id="ac-email-field">
+        <label>Email</label>
+        <input type="email" id="ac-email" placeholder="jordan@company.com">
+        <span class="error-msg">Enter a valid email address.</span>
+      </div>
+      <div class="field" id="ac-company-field">
+        <label>Company</label>
+        <input type="text" id="ac-company" placeholder="Company name">
+        <span class="error-msg">Enter a company name.</span>
+      </div>
+      <div class="field">
+        <label>Plan</label>
+        <select id="ac-plan"></select>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" id="ac-cancel">Cancel</button>
+      <button class="btn btn-primary" id="ac-save">Add customer</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/icons.js"></script>
+<script src="js/app.js"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/data.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>
